@@ -7,9 +7,13 @@ import hello.springcore.member.MemberRepository;
 import hello.springcore.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private DiscountPolicy discountPolicy;
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
