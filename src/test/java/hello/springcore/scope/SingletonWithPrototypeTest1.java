@@ -2,6 +2,7 @@ package hello.springcore.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -36,7 +37,7 @@ public class SingletonWithPrototypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
     }
 
     @Scope("singleton") // 기본타입이 singleton이므로 생략가능
@@ -44,11 +45,15 @@ public class SingletonWithPrototypeTest1 {
         private final PrototypeBean prototypeBean;
 
         @Autowired
+        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
+
+        @Autowired
         public ClientBean(PrototypeBean prototypeBean) {
             this.prototypeBean = prototypeBean;
         }
 
         public int logic(){
+            PrototypeBean prototypeBean = prototypeBeanObjectProvider.getObject();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
