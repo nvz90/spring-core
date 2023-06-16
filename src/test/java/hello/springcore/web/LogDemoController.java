@@ -1,4 +1,4 @@
-package web;
+package hello.springcore.web;
 
 import hello.springcore.common.MyLogger;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,11 @@ public class LogDemoController {
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
+        String requestURL = request.getRequestURL().toString();
+        myLogger.setRequestURL(requestURL);
 
+        myLogger.log("controller test");
+        logDemoService.logic("testId");
+        return "OK";
     }
 }
