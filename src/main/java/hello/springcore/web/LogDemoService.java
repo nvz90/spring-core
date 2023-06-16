@@ -2,7 +2,6 @@ package hello.springcore.web;
 
 import hello.springcore.common.MyLogger;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 @Service
